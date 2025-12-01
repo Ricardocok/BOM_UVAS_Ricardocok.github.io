@@ -3,226 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BOM - Caja de Uvas 8.2 kg Exportación</title>
+  <title>BOM Multi-Fruta | Uva & Arándano</title>
   <style>
     body { font-family: Calibri, Arial, sans-serif; margin: 20px; background: #f5f7fa; }
-    .container { max-width: 1000px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .container { max-width: 1100px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
     h1 { color: #1e3a8a; text-align: center; }
-    h2 { color: #155e75; border-bottom: 2px solid #06b6d4; padding-bottom: 8px; }
+    select, input { padding: 8px; font-size: 16px; border-radius: 6px; border: 2px solid #06b6d4; }
     table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 15px; }
     th { background: #06b6d4; color: white; padding: 12px; }
     td { padding: 10px; border: 1px solid #ddd; }
-    tr:nth-child(even) { background: #f8fafc; }
     .nivel0 { background: #dbeafe !important; font-weight: bold; font-size: 1.2em; }
     .nivel1 { background: #fecaca; }
     .nivel2 { background: #fef3c7; }
     .nivel3 { background: #d9f99d; }
-    input { 
-      width: 90px; padding: 6px; font-size: 15px; text-align: center; 
-      border: 2px solid #06b6d4; border-radius: 6px; font-weight: bold;
-    }
-    .titulo { font-size: 18px; font-weight: bold; color: #1e40af; }
-    .nota { font-style: italic; color: #64748b; margin-top: 20px; }
-    .export { margin-top: 30px; text-align: center; }
-    button { padding: 12px 24px; background: #16a34a; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
-    button:hover { background: #15803d; }
+    .controles { text-align: center; margin: 20px 0; padding: 15px; background: #e0f2fe; border-radius: 10px; }
+    .nota { font-style: italic; color: #64748b; text-align: center; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>BOM – CAJA DE UVAS 8.2 KG EXPORTACIÓN</h1>
-    <p style="text-align:center; color:#dc2626; font-weight:bold;">
-      Cálculo basado en 114 cajas por pallet │ Configuración estándar Perú/Chile 2025
-    </p>
+    <h1>BOM MULTI-FRUTA EXPORTACIÓN</h1>
 
-    <h2>Cantidad a producir</h2>
-    <table>
-      <tr class="nivel0">
-        <td class="titulo">Cajas de 8.2 kg deseadas</td>
-        <td><input type="number" id="cajas" value="1" min="1" step="1" onchange="calcular()"></td>
-        <td>→ <strong><span id="pallets">0.0088</span> pallets</strong></td>
-      </tr>
-    </table>
+    <div class="controles">
+      <label><strong>Producto terminado:</strong></label>
+      <select id="producto" onchange="cambiarProducto()">
+        <option value="uva">Uva de mesa – Caja 8.2 kg</option>
+        <option value="arandano">Arándano – Caja 4.5 kg (36 × 125 g)</option>
+      </select>
+      &nbsp;&nbsp;&nbsp;
+      <label><strong>Cantidad de cajas:</strong></label>
+      <input type="number" id="cajas" value="1" min="1" onchange="calcular()">
+    </div>
 
-    <h2>Lista de Materiales (BOM)</h2>
-    <table>
+    <table id="tablaBOM">
       <thead>
         <tr>
           <th>Nivel</th>
           <th>Código</th>
-          <th>Descripción del Material</th>
+          <th>Descripción</th>
           <th>Cant. por caja</th>
-          <th>Total Requerido</th>
+          <th>Total requerido</th>
           <th>Unidad</th>
           <th>Notas</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- NIVEL 0 -->
-        <tr class="nivel0">
-          <td>0</td>
-          <td>A-8200</td>
-          <td>CAJA DE UVAS 8.2 KG LISTA PARA EXPORTACIÓN</td>
-          <td>1</td>
-          <td id="tA">1.00</td>
-          <td>cajas</td>
-          <td>Palletizable (114 por pallet)</td>
-        </tr>
-
-        <!-- NIVEL 1 - Materia Prima y Envase Primario -->
-        <tr class="nivel1">
-          <td>1</td>
-          <td>B-UVA</td>
-          <td>Uva fresca calibre 18–24 mm (variedad según campaña)</td>
-          <td>8.200</td>
-          <td id="tB">8.200</td>
-          <td>kg</td>
-          <td>Peso neto</td>
-        </tr>
-        <tr class="nivel1">
-          <td>1</td>
-          <td>C-JABA</td>
-          <td>Jaba de cartón corrugado 8.2 kg (tipo telescópica)</td>
-          <td>1</td>
-          <td id="tC">1</td>
-          <td>unid</td>
-          <td>Peso jaba ≈ 480 g</td>
-        </tr>
-        <tr class="nivel1">
-          <td>1</td>
-          <td>D-BOLSA</td>
-          <td>Bolsa polietileno perforada macro (40x50 cm)</td>
-          <td>1</td>
-          <td id="tD">1</td>
-          <td>unid</td>
-          <td>Liner interior</td>
-        </tr>
-        <tr class="nivel1">
-          <td>1</td>
-          <td>E-PADSO2</td>
-          <td>Pad generador SO₂ doble fase (6 g liberación)</td>
-          <td>1</td>
-          <td id="tPad">1</td>
-          <td>unid</td>
-          <td>Obligatorio EE.UU./Europa</td>
-        </tr>
-        <tr class="nivel1">
-          <td>1</td>
-          <td>F-ETIQ</td>
-          <td>Etiqueta principal + PLU</td>
-          <td>2</td>
-          <td id="tEtiq">2</td>
-          <td>unid</td>
-          <td>Impresas full color</td>
-        </tr>
-        <tr class="nivel1">
-          <td>1</td>
-          <td>G-CINTA</td>
-          <td>Cinta adhesiva de embalaje 48 mm</td>
-          <td>0.80</td>
-          <td id="tCinta">0.80</td>
-          <td>metros</td>
-          <td>2 vueltas por caja</td>
-        </tr>
-
-        <!-- NIVEL 2 - Embalaje Secundario (por pallet) -->
-        <tr class="nivel2">
-          <td>2</td>
-          <td>H-PALLET</td>
-          <td>Pallet de madera tratado ISPM-15 100x120 cm</td>
-          <td>0.008772</td>
-          <td id="tPallet">0.0088</td>
-          <td>unid</td>
-          <td>114 cajas/pallet</td>
-        </tr>
-        <tr class="nivel2">
-          <td>2</td>
-          <td>I-FILM</td>
-          <td>Film stretch 500 mm 23 micras</td>
-          <td>0.105</td>
-          <td id="tFilm">0.105</td>
-          <td>kg</td>
-          <td>12 kg por pallet completo pallet</td>
-        </tr>
-        <tr class="nivel2">
-          <td>2</td>
-          <td>J-ESQUIN</td>
-          <td>Esquineros de cartón 5x5x120 cm</td>
-          <td>0.0351</td>
-          <td id="tEsquin">0.035</td>
-          <td>unid</td>
-          <td>4 por pallet</td>
-        </tr>
-        <tr class="nivel2">
-          <td>2</td>
-          <td>K-ZUNCHO</td>
-          <td>Zuncho plástico 16 mm</td>
-          <td>0.070</td>
-          <td id="tZuncho">0.070</td>
-          <td>metros</td>
-          <td>8 metros por pallet</td>
-        </tr>
-
-        <!-- NIVEL 3 - Insumos de limpieza y proceso -->
-        <tr class="nivel3">
-          <td>3</td>
-          <td>L-SANIT</td>
-          <td>Sanitizante cuaternario de amonio</td>
-          <td>0.00175</td>
-          <td id="tSanit">0.0018</td>
-          <td>litros</td>
-          <td>200 ml por pallet</td>
-        </tr>
-        <tr class="nivel3">
-          <td>3</td>
-          <td>M-AGUA</td>
-          <td>Agua potable para lavado mesas</td>
-          <td>0.044</td>
-          <td id="tAgua">0.044</td>
-          <td>litros</td>
-          <td>5 litros por pallet</td>
-        </tr>
+      <tbody id="filas">
+        <!-- Las filas se generan con JavaScript -->
       </tbody>
     </table>
 
-    <div class="export">
-      <button onclick="exportarExcel()">Descargar como Excel (próximamente)</button>
-      <p class="nota">Solo cambia el número de cajas arriba y todo se recalcula al instante</p>
-    </div>
+    <p class="nota">Cambia el producto o la cantidad de cajas → todo se recalcula al instante</p>
   </div>
 
   <script>
+    const bom = {
+      uva: [
+        ["0","A-8200","CAJA DE UVAS 8.2 KG LISTA",1,"cajas","114 cajas por pallet"],
+        ["1","B-UVA","Uva fresca",8.200,"kg","Peso neto"],
+        ["1","C-JABA","Jaba cartón 8.2 kg telescópica",1,"unid","≈480 g"],
+        ["1","D-BOLSA","Bolsa PE perforada macro",1,"unid",""],
+        ["1","E-PADSO2","Pad SO₂ doble fase (6 g)",1,"unid",""],
+        ["1","F-ETIQ","Etiqueta principal + PLU",2,"unid",""],
+        ["1","G-CINTA","Cinta adhesiva 48 mm",0.8,"metros",""],
+        ["2","H-PALLET","Pallet madera ISPM-15",1/114,"unid",""],
+        ["2","I-FILM","Film stretch 23 micras",12/114,"kg",""],
+        ["2","J-ESQUIN","Esquineros cartón",4/114,"unid",""],
+        ["2","K-ZUNCHO","Zuncho plástico 16 mm",8/114,"metros",""],
+        ["3","L-SANIT","Sanitizante cuaternario",0.2/114,"litros","200 ml/pallet"],
+        ["3","M-AGUA","Agua lavado mesas",5/114,"litros",""]
+      ],
+      arandano: [
+        ["0","AR-4500","CAJA DE ARÁNDANOS 4.5 KG LISTA",1,"cajas","144 cajas por pallet"],
+        ["1","AR-FRUTA","Arándano fresco calibre 14-20 mm",4.500,"kg","Peso neto"],
+        ["1","AR-PUNNET","Clamshell ventilado 125 g",36,"unid","PET transparente"],
+        ["1","AR-TAPA","Tapa clamshell 125 g",36,"unid",""],
+        ["1","AR-ABSOR","Absorbedor de etileno (sachet)",1,"unid","por caja madre"],
+        ["1","AR-PADSO2","Pad SO₂ arándano (4 g)",1,"unid",""],
+        ["1","AR-ETIQ","Etiqueta caja madre + banda",2,"unid",""],
+        ["1","AR-CINTA","Cinta adhesiva",0.6,"metros",""],
+        ["2","AR-PALLET","Pallet madera 100×120 cm",1/144,"unid",""],
+        ["2","AR-FILM","Film stretch",10/144,"kg","10 kg/pallet"],
+        ["2","AR-ESQUIN","Esquineros cartón",4/144,"unid",""],
+        ["2","AR-ZUNCHO","Zuncho plástico",6/144,"metros",""],
+        ["3","AR-SANIT","Sanitizante",0.15/144,"litros","150 ml/pallet"]
+      ]
+    };
+
+    function cambiarProducto() {
+      calcular();
+    }
+
     function calcular() {
-      const cajas = parseFloat(document.getElementById("cajas").value) || 0;
-      const palletFactor = cajas / 114;
+      const producto = document.getElementById("producto").value;
+      const cajas = parseFloat(document.getElementById("cajas").value) || 1;
+      const datos = bom[producto];
 
-      document.getElementById("pallets").textContent = palletFactor.toFixed(4);
+      let html = "";
+      datos.forEach(fila => {
+        const cantidadPorCaja = parseFloat(fila[3]);
+        const total = (cantidadPorCaja * cajas).toFixed(4).replace(/0+$/,'').replace(/\.$/,'');
+        const clase = fila[0]==="0" ? "nivel0" : fila[0]==="1" ? "nivel1" : fila[0]==="2" ? "nivel2" : "nivel3";
 
-      // Nivel 0 y 1
-      document.getElementById("tA").textContent = cajas.toFixed(3);
-      document.getElementById("tB").textContent = (cajas * 8.2).toFixed(3);
-      document.getElementById("tC").textContent = cajas.toFixed(0);
-      document.getElementById("tD").textContent = cajas.toFixed(0);
-      document.getElementById("tPad").textContent = cajas.toFixed(0);
-      document.getElementById("tEtiq").textContent = (cajas * 2).toFixed(0);
-      document.getElementById("tCinta").textContent = (cajas * 0.8).toFixed(2);
+        html += `<tr class="${clase}">
+          <td>${fila[0]}</td>
+          <td>${fila[1]}</td>
+          <td>${fila[2]}</td>
+          <td contenteditable="true" onblur="recalcular(this)">${cantidadPorCaja}</td>
+          <td><strong>${total}</strong></td>
+          <td>${fila[4]}</td>
+          <td>${fila[5]}</td>
+        </tr>`;
+      });
 
-      // Nivel 2 (por pallet)
-      document.getElementById("tPallet").textContent = palletFactor.toFixed(4);
-      document.getElementById("tFilm").textContent = (palletFactor * 12).toFixed(3);
-      document.getElementById("tEsquin").textContent = (palletFactor * 4).toFixed(3);
-      document.getElementById("tZuncho").textContent = (palletFactor * 8).toFixed(3);
-
-      // Nivel 3
-      document.getElementById("tSanit").textContent = (palletFactor * 0.2).toFixed(4);
-      document.getElementById("tAgua").textContent = (palletFactor * 5).toFixed(3);
+      document.getElementById("filas").innerHTML = html;
     }
 
-    function exportarExcel() {
-      alert("Función de exportación a Excel en desarrollo. Copia y pega la tabla por ahora");
+    // Permite editar la columna "Cant. por caja" y recalcular
+    function recalcular(elemento) {
+      calcular();
     }
 
-    window.onload = calcular();
+    window.onload = calcular;
   </script>
 </body>
 </html>
